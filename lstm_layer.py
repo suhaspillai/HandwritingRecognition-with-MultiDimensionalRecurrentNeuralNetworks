@@ -25,8 +25,6 @@ class Layer:
         cache = (x, w, b)
         return out, cache
 
-
-
     def affine_forward_bidirectional(self,x_frwd, w_frwd, b_frwd, x_bckd, w_bckd, b_bckd):
         
 
@@ -53,8 +51,6 @@ class Layer:
         cache = (x_frwd, w_frwd, b_frwd, x_bckd_rev, w_bckd, b_bckd)
         return out, cache
 
-
-
     def affine_backward(self,dout, cache):
         """
         Compute backward pass for an affine layer.
@@ -72,8 +68,6 @@ class Layer:
         dx=dx.reshape(x.shape)
         dw=(x_new.T).dot(dout)
         return dx, dw, db
-
-
 
     def affine_backward_birectional(self,dout, cache):
         """
@@ -116,8 +110,6 @@ class Layer:
 
           
         return dx_frwd, dw_frwd, db_frwd, dx_bckd_rev, dw_bckd, db_bckd
-
-
 
     def conv_subsampling_forward(self,x, w, b, conv_param):
         """
@@ -301,7 +293,6 @@ class Layer:
         dw=dw.reshape((w.shape))
         return dx, dw, db
 
-
     def conv_subsampling_forward_multidim(self,x, w, b, conv_param):
         """
         The method is used to compute convolution and subsampling i.e pooling for multi dimension LSTM (Forward Pass)
@@ -359,7 +350,6 @@ class Layer:
         cache = (x, w, b, conv_param)
         return out, cache
 
-
     def conv_subsampling_forward_multidim_cython(self,x, w, b, conv_param):
         """
         Cython implementation of convolutional subsampling for fast execution (Forward Pass)
@@ -403,7 +393,6 @@ class Layer:
         out[0]=w_new.reshape((F,filter_H,filter_W))
         cache = (x, w, b, conv_param)
         return out, cache
-
 
     def conv_subsampling_backward_multidim(self,dout, cache):
         """
@@ -561,8 +550,6 @@ class Layer:
         dw=dw.reshape((w.shape))
         return dx, dw, db
 
-
-
     def tanh_forward(self,x):
 
         """
@@ -574,7 +561,6 @@ class Layer:
         cache = (x)
         return out,cache
 
-
     def tanh_backward(self,dout,cache):
         '''
         Computing tanh backward pass
@@ -585,9 +571,6 @@ class Layer:
         dx = dout * (1-(temp**2))
         return dx
 
-
-
-
     def sigmoid(self, X):
         '''
         Computing sigmoid backward pass
@@ -596,7 +579,6 @@ class Layer:
         x_sigmoid = 1/(1+x_exp) 
         return x_sigmoid
 
- 
     def tanh(self,X):
         '''
         Computing tanh activation
@@ -604,12 +586,6 @@ class Layer:
         val = np.tanh(X)
         return val
 
-    
-
-
-    
-   
-   
     def forward_propagation_multidimension(self, X, model,h):
         '''
         Forward pass for multidimension LSTM
@@ -675,7 +651,6 @@ class Layer:
 
         return h,cache
 
-     
     def backward_propagation_multidimension(self,dout,cache):
         
         '''
@@ -813,7 +788,6 @@ class Layer:
            
         return dx, grads
 
-
     def forward_propagation_cythonic(self, X, model,h):
         '''
         Performing forward propagation (calling cython code for faster execution)
@@ -855,8 +829,6 @@ class Layer:
         cache = (X,model,h,cell_state,arr_i,arr_f_d1,arr_f_d2,arr_o,arr_g)
         return out,cache
     
-
-
     def backward_propagation_cythonic(self, dout,cache):
         '''
         Backward propagation for multidimension LSTM in cython (calling cython code for faster execution)
@@ -935,8 +907,6 @@ class Layer:
         grads={'W_xi':dW_xi,'W_xf' :dW_xf,'W_xo' :dW_xo, 'W_xg' :dW_xg,'W_hi_d1':dW_hi_d1,'W_hi_d2' :dW_hi_d2, 'W_hf_d1' :dW_hf_d1,'W_hf_d2' :dW_hf_d2,'W_ho_d1' :dW_ho_d1, 'W_ho_d2' :dW_ho_d2, 'W_hg_d1' :dW_hg_d1,'W_hg_d2' :dW_hg_d2,'b_i' : db_i, 'b_f_d1' :db_f_d1, 'b_f_d2' :db_f_d2, 'b_o' :db_o,'b_g' :db_g}
         return dx, grads
 
-
-     
     def dropout_train_forward(self, X,p):
         
         '''
@@ -978,7 +948,6 @@ class Layer:
         dx /= N
         return loss, dx
 
- 
     def get_input_block(self, x,width,height):
         '''
         To convert image data into blocks and then start processing 
