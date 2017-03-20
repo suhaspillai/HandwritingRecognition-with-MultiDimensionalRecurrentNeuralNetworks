@@ -29,5 +29,13 @@ The IAM dataset contains 115149 images of words, so the following command will c
 
 ```
 python create_data.py /home/xml_files /home/data/words 80000 15000
-````
+```
+##
+To create .so file, which will be used for calling cython functions. 
+
+```
+python setup_cython_3.py build_ext --inplace
+```
+
+
 
