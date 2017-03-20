@@ -7,7 +7,7 @@ Creates a network based on [MultiDimensional RNNs](http://people.idsia.ch/~juerg
 * Creates Multidimensional LSTM network.
 * No need to extract features before feeding it to RNN or LSTM framework.
 * The current configuration takes 2D input but can be extended to N-dimensional input.
-* Uses forward backward algorithm with CTC loss function. This is taken from Andrew Mass [stanford-ctc] (https://github.com/amaas/stanford-ctc).
+* Uses forward backward algorithm with CTC loss function. This is taken from Andrew Mass [stanford-ctc](https://github.com/amaas/stanford-ctc).
 * Runs on Multi-Cores.
 * Uses cython for fast execution.
 
