@@ -22,12 +22,14 @@ To create data splits for training, validation and testing
 ```
 python create_data.py path_to_xml_files path_to_words train_samples val_samples 
 ```
+
 path_to_xml_files: folder where xml files are stored.
 path_to_words: folder where images of handwritten words are stored.
-train_samples: no of training samples
-val_samples: no of validation samples
+train_samples: no of training samples.
+val_samples: no of validation samples.
 
-The IAM dataset contains 115149 images of words, so the following command will create 80k trainig_data 15k validation_data and 20k testing_data. 
+The IAM dataset contains 115149 images of words, so the following command will create 80k training_data 15k validation_data and 20k testing_data. 
+
 ```
 python create_data.py /home/xml_files /home/data/words 80000 15000
 ````
