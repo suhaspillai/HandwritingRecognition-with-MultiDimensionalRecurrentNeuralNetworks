@@ -28,7 +28,7 @@ path_to_xml_files: folder where xml files are stored, path_to_words: folder wher
 The IAM dataset contains 115149 images of words, so the following command will create 80k training_data 15k validation_data and 20k testing_data. 
 
 ```
-python create_data.py /home/xml_files /home/data/words 80000 15000
+python create_data.py /home/xml_files/ /home/data/words/ 80000 15000
 ```
 ## Training
 First create .so file, which will be used for calling cython functions. 
