@@ -48,6 +48,7 @@ For example,
 ```
  python train.py 0.001 0.9 0.0 rmsprop 200 2
 ```
+Intial weights are initialized using xavier initialization. After every epoch parameters are saved using cPickle as model_parameters.
 
 
 
