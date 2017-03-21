@@ -12,8 +12,8 @@ Creates a network based on [MultiDimensional RNNs](http://people.idsia.ch/~juerg
 * Uses cython for fast execution.
 
 ## Installation
-* Installing cython from [Cython](http://cython.readthedocs.io/en/latest/src/quickstart/install.html)
-* Installing dill from [dill](https://pypi.python.org/pypi/dill). dill extends python’s pickle module for serializing and de-serializing python objects.
+* Installing [Cython](http://cython.readthedocs.io/en/latest/src/quickstart/install.html)
+* Installing [dill](https://pypi.python.org/pypi/dill). dill extends python’s pickle module for serializing and de-serializing python objects.
 
 ## Data Preparation
 Downloading IAM dataset for handwriting recognition from [IAM](http://www.fki.inf.unibe.ch/databases/iam-handwriting-database).
