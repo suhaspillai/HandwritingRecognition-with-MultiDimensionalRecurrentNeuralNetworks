@@ -8,43 +8,53 @@ from pylab import *
 import pdb
 import pstats, cProfile
 import sys
+import argparse
+
+parser  = argparse.ArgumentParser()
+parser.add_argument('--learning_rate',default=0.001,type=float)
+parser.add_argument('--momentum',default=0.9,type=float)
+parser.add_argument('--reg',default=0.0,type=float)
+parser.add_argument('--update',default='rmsprop')
+parser.add_argument('--batch_size',default=200,type=int)
+parser.add_argument('--epochs',default=50,type=int)
+args = parser.parse_args()
 
 '''
 Main file to train the network
 '''
 
-def main(argv):
-    print '\n ..................Start Training..................\n'       
+def main():
+    print '\n ..................Start Training..................\n'
     file_dict_data = open('dict_data','rb')
     dict_data = cp.load(file_dict_data)
     f_train = open('training_data','rb')
     list_data_train = cp.load(f_train)
-    f_val = open('validation_data','rb') 
+    f_val = open('validation_data','rb')
     list_data_val = cp.load(f_val)
     dict_data_train={}
-    dict_data_val={}    
+    dict_data_val={}
 
     # create dictionary for training and validation
     for img in list_data_train:
         dict_data_train[img] = dict_data[img]
 
     for img in list_data_val:
-        dict_data_val[img] = dict_data[img]     
+        dict_data_val[img] = dict_data[img]
 
     file_chars = open('chars_data','rb')
-    chars = cp.load(file_chars)  
+    chars = cp.load(file_chars)
     list_vocab = []
     list_vocab.append('blank')
     for i in xrange(len(chars)):
         list_vocab.append(chars.pop())
- 
+
     char_to_ix = {list_vocab[i]:i for i in xrange(len(list_vocab))}
     ix_to_char = {i:list_vocab[i] for i in xrange(len(list_vocab))}
     vocab_size = len(char_to_ix)
 
     #Intialize weights
     #-------------------------------------------------Model_1 --------------------------------------------------------#
-    
+
     bias_scale = 0.0
     conv_param_1={'width':2,'height':2}
     width = conv_param_1['width']
@@ -124,24 +134,24 @@ def main(argv):
     dict_conv_param = {'conv_1':conv_param_1,'conv_2':conv_param_2,'conv_3':conv_param_3}
 
     #--------------------------------------------------------------------------------------------------------------------------------------#
-    max_iter = len(list_data_train)   
-    print ('Training data =%d Validation data = %d') % (len(list_data_train),len(list_data_val)) 
-    lr = float(argv[0])          # learning rate
-    momentum = float(argv[1])    #momentum
-    reg = float(argv[2])           # regularization
-    update = argv[3]               # can be sgd or rmsprop
-    batch_size = int(argv[4])  
-    epochs = int(argv[5]) 
+    max_iter = len(list_data_train)
+    print ('Training data =%d Validation data = %d') % (len(list_data_train),len(list_data_val))
+    lr = args.learning_rate
+    momentum = args.momentum
+    reg = args.reg
+    update = args.update
+    batch_size = args.batch_size
+    epochs = args.epochs
     cer = 0
     
     # Start Training
     for i in xrange (epochs):
         print '\nEpoc no = %d' % (i)
-        epoch = i+1    
-        model,cer = trainer_obj. train (dict_data_train, list_data_train, dict_data_val, list_data_val, model,dict_conv_param,char_to_ix,ix_to_char,max_iter,lr,momentum,reg,batch_size,update,epoch,cer)              
-    
-    
+        epoch = i+1
+        model,cer = trainer_obj. train (dict_data_train, list_data_train, dict_data_val, list_data_val, model,dict_conv_param,char_to_ix,ix_to_char,max_iter,lr,momentum,reg,batch_size,update,epoch,cer)
+
+
     print ('Finished Training CER on validation set = %f') % (cer)
-   
+
 if __name__=='__main__':
-    main(sys.argv[1:])
+    main()
