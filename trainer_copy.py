@@ -267,7 +267,7 @@ class Trainer:
         std = 58.919279934
 
         
-        for iter_val_count in xrange(max_iter,len(list_data)):
+        for iter_val_count in xrange(max_iter,len(list_data)): 
             rand_no = iter_val_count
             X = array(Image.open(list_data[rand_no]))
             X = (X-mean)/std
@@ -278,8 +278,7 @@ class Trainer:
             list_track_val.append(pool.apply_async(MDLSTM_val,(dill.dumps((self.val_parallel,[list_data_val[iter_count]])),)))
 
         pool.close()
-        pool.join()
-        
+        pool.join()        
         total_dist = 0
         total_corr = 0
         total_chars = 0
@@ -287,9 +286,7 @@ class Trainer:
         for iter_count in xrange(len(list_track_val)):
             out_probs,rand_no = list_track_val[iter_count].get()
             seq = dict_data[list_data[rand_no]]
-
             grd_truth_seq = [char_to_ix[i]  for i in seq]
-            
             total_chars +=len(grd_truth_seq)
             hyp,dist = ed.decode_best_path(out_probs, grd_truth_seq)
             if len(hyp)>0:
@@ -298,5 +295,5 @@ class Trainer:
                 total_corr += corr
         
         cer = 100 * (total_dist /(total_dist+total_corr+1e-8))   
-        print "CER is =%f " % (cer)
+        return cer 
 
