@@ -46,7 +46,7 @@ python train.py learning_rate momentum regularization update batch_size epochs
 For example,
 
 ```
- python train.py 0.001 0.9 0.0 rmsprop 200 50
+ python train.py --learning_rate=0.001 --momentum=0.9 --reg=0.0 --update=rmsprop --batch_size=200 --epochs=50
 ```
 Intial weights are initialized using xavier initialization. After every epoch parameters are saved using cPickle as model_parameters.
 
