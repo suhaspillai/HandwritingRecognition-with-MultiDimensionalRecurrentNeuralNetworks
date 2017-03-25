@@ -83,8 +83,11 @@ class Trainer:
             flag = True
             batch_loss=0.0
             for iter_val in xrange(len(list_imgs)):
-                
-                X = array(Image.open(list_imgs[iter_val]))
+                try:
+                    X = array(Image.open(list_imgs[iter_val]))
+                except:
+                    continue
+                    #Add up something here if this will affect the further process
                 X = (X-mean)/std	  
                 seq = dict_data[list_imgs[iter_val]]
                 grd_truth_seq = [char_to_ix[i]  for i in seq]
