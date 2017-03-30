@@ -82,9 +82,15 @@ class Trainer:
             list_track=[]
             flag = True
             batch_loss=0.0
+            corrupt_img_count = 0 #Handle corrupt images
             for iter_val in xrange(len(list_imgs)):
-                
-                X = array(Image.open(list_imgs[iter_val]))
+                try:
+                    X = array(Image.open(list_imgs[iter_val]))
+                except:
+                    print ('Corrupt Image')
+                    corrupt_img_count =  corrupt_img_count + 1 
+                    continue
+ 
                 X = (X-mean)/std	  
                 seq = dict_data[list_imgs[iter_val]]
                 grd_truth_seq = [char_to_ix[i]  for i in seq]
@@ -113,7 +119,8 @@ class Trainer:
                             sub_sub_model = sub_model[field]
                             for key in sub_sub_model:
                                 batch_grads[model_name][field][key]+=grads[model_name][field][key]
-                       
+            
+            batch_size = len(list_img_arr) #If there are corrupt images, then you cannot just use batch size, in future use Netcdf/LDMB to load.
             loss = batch_loss/batch_size
             if counter_iter >0:
                 self.loss_list.append(0.01*loss  + 0.99 * self.loss_list[-1])
@@ -207,7 +214,9 @@ class Trainer:
                             dx = (-learning_rate * dx) / (np.sqrt(self.dict_global[model_name][field]['step_cache'][p] )+ 1e-8)
                             model[model_name][field][p] += dx
       
-            count_batch = count_batch+batch_size
+            #count_batch = count_batch+batch_size
+            batch_size = batch_size + corrupt_img_count
+            count_batch = count_batch+batch_size 
             counter_iter = counter_iter+1
               
         end = time.time()
