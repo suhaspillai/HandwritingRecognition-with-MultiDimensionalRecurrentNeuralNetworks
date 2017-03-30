@@ -50,5 +50,8 @@ For example,
 ```
 Intial weights are initialized using xavier initialization. After every epoch parameters are saved using cPickle as model_parameters.
 
-
-
+## Testing
+Run the following command
+```
+python test.py
+```
